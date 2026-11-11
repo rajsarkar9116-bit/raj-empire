@@ -1,0 +1,242 @@
+
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RAJ EMPIRE</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:white;font-family:Arial;text-align:center}
+header{background:#17120a;padding:25px;border-bottom:2px solid #d5a943}
+h1{color:#f1c65e;font-size:30px}
+h2,h3{color:#edc56a}
+button{background:linear-gradient(135deg,#f5d783,#b78325);border:0;border-radius:10px;padding:12px;margin:5px;font-weight:bold}
+.card{background:#1b1b1b;border:1px solid #8c6928;border-radius:15px;padding:20px;margin:15px}
+input{width:90%;padding:12px;margin:7px;border-radius:8px;background:#111;color:white;border:1px solid #777}
+.page{display:none}
+.page.active{display:block}
+nav{position:fixed;bottom:0;background:#17120a;width:100%;padding:8px}
+nav button{font-size:12px;margin:2px}
+main{padding-bottom:90px}
+</style>
+</head>
+<body>
+
+<header>
+<h1>👑 RAJ EMPIRE</h1>
+<p>YOUR COMMUNITY • YOUR KINGDOM</p>
+</header>
+
+<nav>
+<button onclick="openPage('home')">🏠 Home</button>
+<button onclick="openPage('family')">👨‍👩‍👧 Family</button>
+<button onclick="openPage('vip')">👑 VIP</button>
+<button onclick="openPage('battle')">⚔️ PK</button>
+<button onclick="openPage('profile')">👤 Profile</button>
+</nav>
+
+<main>
+<section id="home" class="page active">
+<div class="card">
+<h2>WELCOME TO RAJ EMPIRE</h2>
+<p>अपना Empire बनाओ!</p>
+<button onclick="openPage('family')">JOIN FAMILY</button>
+</div>
+<div class="card">
+<h3>🎙️ Voice Room</h3>
+<p>RAJ EMPIRE LIVE ROOM</p>
+<button onclick="alert('Live Voice अभी Demo में उपलब्ध नहीं है')">OPEN ROOM</button>
+</div>
+<div class="card">
+<h3>🎁 Gift Gallery</h3>
+<p>🌹 Rose　 👑 Crown　 💎 Diamond</p>
+</div>
+</section>
+
+<section id="family" class="page">
+<div class="card">
+<h2>👨‍👩‍👧 CREATE FAMILY</h2>
+<input id="familyName" placeholder="Family Name">
+<button onclick="createFamily()">CREATE FAMILY</button>
+<p id="familyResult"></p>
+</div>
+</section>
+
+<section id="vip" class="page">
+<div class="card">
+<h2>👑 VIP MEMBERSHIP</h2>
+<h3>VIP 1 • VIP 2 • VIP 3</h3>
+<h3>VIP 4 • VIP 5 • VIP 6</h3>
+<h3>VIP 7 • VIP 8 • VIP 9</h3>
+<p>PREMIUM MEMBER</p>
+</div>
+</section>
+
+<section id="battle" class="page">
+<div class="card">
+<h2>⚔️ PK BATTLE</h2>
+<input id="battleName" placeholder="Battle Name">
+<input id="battleDate" type="date">
+<button onclick="createBattle()">CREATE EVENT</button>
+<p id="battleResult"></p>
+</div>
+</section>
+
+<section id="profile" class="page">
+<div class="card">
+<h2>👤 MY PROFILE</h2>
+<input id="userName" placeholder="Your Name">
+<input id="userUID" placeholder="Your UID">
+<button onclick="saveProfile()">SAVE PROFILE</button>
+<p id="profileResult"></p>
+</div>
+</section>
+</main>
+
+<script>
+function openPage(id){
+ document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+ document.getElementById(id).classList.add('active');
+}
+function createFamily(){
+ let n=document.getElementById('familyName').value;
+ if(!n)return alert('Family Name लिखें');
+ localStorage.setItem('family',n);
+ document.getElementById('familyResult').innerText='Family: '+n;
+}
+function createBattle(){
+ let n=document.getElementById('battleName').value;
+ let d=document.getElementById('battleDate').value;
+ if(!n)return alert('Battle Name लिखें');
+ document.getElementById('battleResult').innerText=n+' | '+d;
+}
+function saveProfile(){
+ let n=document.getElementById('userName').value;
+ let u=document.getElementById('userUID').value;
+ localStorage.setItem('rajName',n);
+ localStorage.setItem('rajUID',u);
+ document.getElementById('profileResult').innerText='Profile Saved: '+n+' | UID: '+u;
+}
+</script>
+</body> <div style="background:#100d08;color:gold;border:2px solid gold;border-radius:18px;padding:20px;margin:15px;text-align:center">
+<h1>👑 ADMIN PANEL</h1>
+<h2>RAJ – OWNER</h2>
+<p>RAJ EMPIRE CONTROL CENTER</p>
+
+<input id="adminMember" placeholder="Member Name"><br><br>
+<select id="adminVip">
+<option>VIP 1</option>
+<option>VIP 2</option>
+<option>VIP 3</option>
+<option>VIP 4</option>
+<option>VIP 5</option>
+<option>VIP 6</option>
+<option>VIP 7</option>
+<option>VIP 8</option>
+<option>VIP 9</option>
+<option>VIP 10</option>
+</select><br><br>
+
+<input id="adminCoins" type="number" placeholder="Coins"><br><br>
+
+<button onclick="adminSave()">SAVE MEMBER</button>
+<p id="adminMessage"></p>
+</div>
+
+<script>
+function adminSave(){
+let name=document.getElementById('adminMember').value.trim();
+let vip=document.getElementById('adminVip').value;
+let coins=document.getElementById('adminCoins').value;
+if(!name || coins===""){
+alert('Enter member name and coins');
+return;
+}
+let member={name:name,vip:vip,coins:Number(coins)};
+localStorage.setItem('rajAdminMember',JSON.stringify(member));
+document.getElementById('adminMessage').innerText=
+'Member: '+name+' | '+vip+' | '+coins+' Coins Saved!';
+}
+</script><div style="background:#17110a;color:gold;border:2px solid gold;border-radius:18px;padding:20px;margin:15px;text-align:center">
+<h2>⚔️ RAJ EMPIRE PK BATTLE</h2>
+<input id="pkName" placeholder="Battle Name"><br><br>
+<input id="teamA" placeholder="Team A"><br><br>
+<input id="teamB" placeholder="Team B"><br><br>
+<input id="pkDate" type="datetime-local"><br><br>
+<button onclick="createRajPK()">CREATE BATTLE</button>
+<div id="pkResult"></div>
+</div>
+<script>
+function createRajPK(){
+let n=document.getElementById('pkName').value;
+let a=document.getElementById('teamA').value;
+let b=document.getElementById('teamB').value;
+let d=document.getElementById('pkDate').value;
+if(!n||!a||!b||!d){
+alert('Please fill all details');
+return;
+}
+document.getElementById('pkResult').innerHTML=
+'<h3>'+n+'</h3><h2>'+a+' VS '+b+'</h2><p>'+d+'</p><button onclick="alert(\'Winner: '+a+'\')">'+a+' WINNER</button> <button onclick="alert(\'Winner: '+b+'\')">'+b+' WINNER</button>';
+}
+</script><div style="background:#17110a;border:2px solid gold;border-radius:18px;padding:20px;margin:15px;text-align:center;color:gold">
+<h2>👑 RAJ EMPIRE WALLET</h2>
+<h1>🪙 <span id="rajCoins">10000</span></h1>
+<p>MY FREE COINS</p>
+<h3>🎁 GIFT GALLERY</h3>
+<button onclick="sendRajGift('Rose',100)">🌹 Rose - 100</button>
+<button onclick="sendRajGift('Heart',500)">❤️ Heart - 500</button>
+<button onclick="sendRajGift('Crown',1000)">👑 Crown - 1000</button>
+<p id="rajGiftMsg"></p>
+</div>
+<script>
+let rajCoins=localStorage.getItem('rajCoins');
+if(rajCoins===null){
+ rajCoins=10000;
+ localStorage.setItem('rajCoins',rajCoins);
+}
+function showRajCoins(){
+ document.getElementById('rajCoins').innerText=rajCoins;
+}
+function sendRajGift(name,price){
+ if(rajCoins<price){
+  alert('Not enough coins!');
+  return;
+ }
+ rajCoins-=price;
+ localStorage.setItem('rajCoins',rajCoins);
+ showRajCoins();
+ document.getElementById('rajGiftMsg').innerText=
+ 'You selected '+name+' gift!';
+}
+showRajCoins();
+</script> <div id="rajVipCard" style="background:linear-gradient(135deg,#17110a,#49320c,#080808);border:2px solid gold;border-radius:20px;padding:25px;text-align:center;color:gold;margin:15px">
+<h1>👑 RAJ EMPIRE</h1>
+<h2>ROYAL VIP MEMBER</h2>
+<h1 style="color:white">RAJ</h1>
+<h2>VIP 1</h2>
+<p>PREMIUM MEMBER</p>
+<p>YOUR COMMUNITY • YOUR KINGDOM</p>
+</div><div id="rajLogin" style="position:fixed;inset:0;background:#080808;color:gold;z-index:99999;display:flex;align-items:center;justify-content:center">
+<div style="text-align:center;padding:25px;border:2px solid gold;border-radius:20px">
+<h1>👑 RAJ EMPIRE</h1>
+<p>Welcome to Your Kingdom</p>
+<input id="rajName" placeholder="Your Name"><br><br>
+<input id="rajPass" type="password" placeholder="Password"><br><br>
+<button onclick="rajEnter()">LOGIN / REGISTER</button>
+</div></div>
+<script>
+function rajEnter(){
+let n=document.getElementById('rajName').value.trim();
+let p=document.getElementById('rajPass').value;
+if(!n||!p){alert('Enter name and password');return;}
+localStorage.setItem('rajEmpireName',n);
+document.getElementById('rajLogin').style.display='none';
+alert('Welcome '+n);
+}
+if(localStorage.getItem('rajEmpireName')){
+document.getElementById('rajLogin').style.display='none';
+}
+</script>
+</html>
