@@ -1,9 +1,8 @@
-{
-  "name": "RAJ EMPIRE",
+name": "RAJ EMPIRE",
   "short_name": "RAJ",
   "start_url": "./",
   "display": "standalone",
   "background_color": "#000000",
   "theme_color": "#d4af37",
   "description": "RAJ EMPIRE Official App"
-}<link rel="manifest" href="manifest.json">
+}<link rel="manifest" href="manifest.json
